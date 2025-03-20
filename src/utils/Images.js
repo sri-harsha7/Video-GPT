@@ -3,3 +3,6 @@ export const LOGO =
 
 export const Background_IMG =
   "https://i.pinimg.com/736x/0a/a3/3c/0aa33c4c483f63a5a1ec383457aa0f98.jpg";
+
+export const AVATAR =
+  "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png?20201013161117";
