@@ -1,0 +1,2 @@
+- Created React App using Vite
+- integrated Tailwind CSS
