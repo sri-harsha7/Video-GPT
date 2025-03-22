@@ -1,5 +1,5 @@
 import Header from "./Header";
-import { AVATAR, Background_IMG } from "../utils/Images";
+import { AVATAR, Background_IMG } from "../utils/constants";
 import { useState, useRef } from "react";
 import { checkValidate } from "../utils/Validate";
 import {
@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+
 import { updateProfile } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
@@ -15,7 +15,6 @@ import { addUser } from "../utils/userSlice";
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const toggleSignInForm = () => {
@@ -25,8 +24,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const handleButtonClick = () => {
-    console.log(email.current.value);
-    console.log(password.current.value);
     const message = checkValidate(email.current.value, password.current.value);
     setErrorMessage(message);
     if (message) return;
@@ -55,13 +52,10 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMessage(error.message);
             });
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -79,8 +73,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -100,7 +92,7 @@ const Login = () => {
       <form
         onSubmit={(e) => e.preventDefault()}
         action=""
-        className="relative top-40 mx-auto w-3/12 py-15 px-10 bg-black text-white bg-opacity-70"
+        className="relative top-40 mx-auto w-full py-15 px-10 bg-black text-white bg-opacity-70 sm:w-3/12 md:w-2/3 lg:w-1/2 xl:w-1/3"
       >
         <h1 className="text-3xl py-3">{isSignIn ? "Sign In" : "Sign Up"}</h1>
         {!isSignIn && (
@@ -127,6 +119,13 @@ const Login = () => {
           placeholder="Password"
           className="p-2 my-5 text-white border-1 border-white w-full bg-gray-700"
         />
+        {!isSignIn && (
+          <p className="">
+            {" "}
+            Password must be at least 8 characters One UpperCase letter , One
+            LowerCase letter , One number and one special character
+          </p>
+        )}
         <p className="text-red-600">{errorMessage}</p>
         <button
           type="submit"
