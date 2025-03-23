@@ -7,11 +7,23 @@ export const Background_IMG =
 export const AVATAR =
   "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png?20201013161117";
 
-export const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZGY2OTYyMGU2NmQ5ZmE1NTgxODYwYzE5ZDMzYjQyNiIsIm5iZiI6MTc0MjQ5NDg5NS40MTgsInN1YiI6IjY3ZGM1Y2FmYzIwZmI1YTQxOGFmMjE0NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sY1zoEpiW79HQ6eVvzL4legnHgDPqxkdtA0pa5fravg",
+export const POSTER_URL = "https://image.tmdb.org/t/p/w500";
+
+export const SUPPORTED_LANG = [
+  {
+    id: "en",
+    name: "English",
   },
-};
+  {
+    id: "hindi",
+    name: "Hindi",
+  },
+  {
+    id: "spanish",
+    name: "Spanish",
+  },
+  {
+    id: "telugu",
+    name: "Telugu",
+  },
+];
