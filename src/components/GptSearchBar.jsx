@@ -1,17 +1,67 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import lang from "../utils/languageConstants";
+import { useRef } from "react";
+import client from "../utils/client";
+import { options } from "../utils/options";
+import { addGptMovieNames, addGptMovieResult } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
+  const dispatch = useDispatch();
   const langKey = useSelector((store) => store.config.lang);
+  const searchText = useRef(null);
+
+  //SearchMovie in TMDB
+  const searchMovie = async (movie) => {
+    const data = await fetch(
+      "https://api.themoviedb.org/3/search/movie?query=" +
+        movie +
+        "&include_adult=false&language=en-US&page=1",
+      options
+    );
+    const json = await data.json();
+    return json.results;
+  };
+
+  const handleGptSearchClick = async () => {
+    console.log(searchText.current.value);
+    //Make an API Call
+    const response = await client.chat.completions.create({
+      model: "Provider-5/gpt-4o-mini",
+      messages: [
+        {
+          role: "user",
+          content:
+            searchText.current.value +
+            "Only give me the names of the 5 movies, comma separated like the example given ahead. Example: Gadar, Pushpan, RRR, Don, Sholay",
+        },
+      ],
+    });
+    const gptMovies = response.choices[0].message.content.split(",");
+    console.log(gptMovies);
+
+    const promiseArray = gptMovies.map((movie) => searchMovie(movie));
+    const tmdbResults = await Promise.all(promiseArray);
+    dispatch(addGptMovieResult(tmdbResults));
+    dispatch(addGptMovieNames(gptMovies));
+  };
+
   return (
-    <div className="pt-[10%] flex justify-center ">
-      <form action="" className=" bg-black w-1/2 grid grid-cols-12">
+    <div className="pt-[10%] flex justify-center mobile:pt-5">
+      <form
+        action=""
+        className=" bg-black w-1/2 grid grid-cols-12 mobile:w-full grid grid-cols-12 mobile:grid-cols-1"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <input
+          ref={searchText}
           type="text"
           placeholder={lang?.[langKey].gptPlaceholder}
-          className="p-2 m-2 bg-white rounded-lg text-black col-span-9"
+          className="p-2 m-2 bg-white rounded-lg text-black col-span-9 mobile:col-span-1"
         />
-        <button className="py-2 px-4  bg-red-600 text-white rounded-lg col-span-3 m-4">
+        <button
+          className="py-2 px-4  bg-red-600 text-white rounded-lg col-span-3 m-4 mobile:col-span-1 mobile:m-4 mobile:m-2"
+          onClick={handleGptSearchClick}
+        >
           {lang?.[langKey].search}
         </button>
       </form>

@@ -13,6 +13,7 @@ dist-ssr
 *.local
 src/utils/firebase.js
 src/utils/options.js
+# src/utils/openAiKey.js
 
 # Editor directories and files
 .vscode/*
@@ -24,3 +25,5 @@ src/utils/options.js
 *.njsproj
 *.sln
 *.sw?
+src/utils/openAiKey.js
+src/utils/client.js
