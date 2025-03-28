@@ -57,8 +57,11 @@ const Header = () => {
   }, []);
 
   return (
-    <div className=" w-full absolute px-8 py-4 bg-gradient-to-b from-black z-10 flex justify-between sm:justify-between md:justify-between lg:justify-between xl:justify-between ">
-      <div className="w-1/2 sm:w-1/4 md:w-1/6 lg:w-1/8 xl:w-1/10  ">
+    <div
+      className=" fixed w-full absloute px-8 py-4 bg-gradient-to-b from-black z-10 flex flex-col 
+     md:flex-row justify-between "
+    >
+      <div className="w-44 mx-auto md:mx-0 ">
         <img src={LOGO} alt="" className="w-50 h-full object-contain" />
       </div>
       {user && (
@@ -86,7 +89,7 @@ const Header = () => {
           <img src={AVATAR} alt="user Icon" className="pr-4 w-15" />
           <button
             onClick={handleSignOut}
-            className="text-white border-2 p-1 w-25 h-10 rounded bg-red-700 "
+            className="text-white px-7 text-wrap md:text-white md:border-2 md:p-1 md:w-25 md:h-10 md:rounded md: bg-red-700 "
           >
             (Sign Out)
           </button>

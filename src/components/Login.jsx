@@ -86,7 +86,11 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute w-full">
-        <img src={Background_IMG} alt="Background Img" className=" w-full" />
+        <img
+          src={Background_IMG}
+          alt="Background Img"
+          className=" w-screen h-screen object-cover"
+        />
       </div>
 
       <form
