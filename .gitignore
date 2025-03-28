@@ -25,5 +25,5 @@ src/utils/options.js
 *.njsproj
 *.sln
 *.sw?
+.env
 src/utils/openAiKey.js
-src/utils/client.js
